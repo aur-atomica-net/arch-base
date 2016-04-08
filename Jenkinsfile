@@ -3,18 +3,18 @@
 node {
     checkout scm
 
-    stage 'Build Images'
+    stage 'Build'
     sh 'sudo /bin/sh ./build.sh'
 
+    def base = docker.image('atomica/arch-base:latest')
+
     docker.withRegistry('https://index.docker.io/v1/', 'docker-jasonrm') {
-        stage 'Push atomica/arch-base'
-        def base = docker.image('atomica/arch-base')
+        stage 'Push to Docker Hub'
         base.push()
     }
 
     docker.withRegistry('https://docker.artfire.me/', 'docker-artfire') {
-        stage 'Push docker.artfire.me/atomica/arch-base'
-        def base = docker.image('atomica/arch-base')
+        stage 'Push to ArtFire'
         base.push()
     }
 }
