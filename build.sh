@@ -38,4 +38,4 @@ cp entrypoint.sh ./root.x86_64/entrypoint.sh
 tar --numeric-owner -C root.x86_64 -c . | docker import - "${BASE_IMAGE_NAME}-base:staging"
 
 # Do the things that we can only do in docker build
-docker build --force-rm --tag="arch-base:latest"  .
+cat Dockerfile | docker build --force-rm --tag="arch-base:latest" -
