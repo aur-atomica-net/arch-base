@@ -3,11 +3,11 @@ set -e
 set -x
 set -o pipefail
 
-if [[ $EUID -ne 0 ]]; then
-    # Not running as root inside of container so lets see what happens
-    echo "not running as root"
-    exec "$@"
-fi
+# if [[ $EUID -ne 0 ]]; then
+#     # Not running as root inside of container so lets see what happens
+#     echo "not running as root"
+#     exec "$@"
+# fi
 
 # Because docker pipeline will start running under a per-host
 # specific uid:gid we'll need to create a user inside the container
