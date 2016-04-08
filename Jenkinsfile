@@ -18,13 +18,13 @@ node {
         sh '/bin/true'
     }
 
-    docker.withRegistry('https://index.docker.io/v1/', 'docker-jasonrm') {
-        stage 'Push to Docker Hub'
-        base.push()
-    }
+    // docker.withRegistry('https://index.docker.io/v1/', 'docker-jasonrm') {
+    //     stage 'Push to Docker Hub'
+    //     base.push()
+    // }
 
-    docker.withRegistry('https://docker.artfire.me/', 'docker-artfire') {
-        stage 'Push to ArtFire'
-        base.push()
-    }
+    // docker.withRegistry('https://docker.artfire.me/', 'docker-artfire') {
+    //     stage 'Push to ArtFire'
+    //     base.push()
+    // }
 }

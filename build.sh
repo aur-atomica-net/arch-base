@@ -31,6 +31,11 @@ cp pacman.conf ./root.x86_64/etc/pacman.conf
 sudo systemd-nspawn --directory=$(pwd)/root.x86_64 --bind=/var/cache/pacman --machine=arch-base-${RANDOM} /bin/sh /arch-base.sh
 rm -f ./root.x86_64/arch-base.sh
 
+# gosu
+mkdir -p ./root.x86_64/usr/local/bin
+curl -L https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64 -o ./root.x86_64/usr/local/bin/gosu
+chmod 755 ./root.x86_64/usr/local/bin/gosu
+
 # Entrypoint script untill we can figure out a better way to handle user/group issues
 cp entrypoint.sh ./root.x86_64/entrypoint.sh
 
