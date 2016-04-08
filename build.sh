@@ -39,3 +39,5 @@ tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:staging
 
 # Do the things that we can only do in docker build
 cat Dockerfile | docker build --force-rm --tag="${IMAGE_NAME}:latest" -
+
+docker rmi "${IMAGE_NAME}:staging"
