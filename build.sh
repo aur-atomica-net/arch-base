@@ -3,7 +3,7 @@ set -e
 set -x
 set -o pipefail
 
-BASE_IMAGE_NAME="atomica/arch"
+IMAGE_NAME="atomica/arch-base"
 MIRROR="http://mirror.lty.me/archlinux"
 VERSION=$(curl ${MIRROR}/iso/latest/ | grep -Poh '(?<=archlinux-bootstrap-)\d*\.\d*\.\d*(?=\-x86_64)' | head -n 1)
 
@@ -35,7 +35,7 @@ rm -f ./root.x86_64/arch-base.sh
 cp entrypoint.sh ./root.x86_64/entrypoint.sh
 
 # Build base image
-tar --numeric-owner -C root.x86_64 -c . | docker import - "${BASE_IMAGE_NAME}-base:staging"
+tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:staging"
 
 # Do the things that we can only do in docker build
-cat Dockerfile | docker build --force-rm --tag="arch-base:latest" -
+cat Dockerfile | docker build --force-rm --tag="${IMAGE_NAME}:latest" -
