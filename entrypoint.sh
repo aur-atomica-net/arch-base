@@ -19,4 +19,4 @@ groupadd -r -g ${GROUP_ID} code_executor
 useradd --uid $USER_ID --gid ${GROUP_ID} --groups wheel --shell /bin/bash --no-create-home --home-dir $(pwd) code_executor
 echo 'code_executor ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-exec /usr/bin/sudo --user=code_executor --group=code_executor "$@"
+exec /usr/bin/su --user=code_executor --group=code_executor --command "$@"
