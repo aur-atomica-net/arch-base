@@ -40,9 +40,9 @@ chmod 755 ./root.x86_64/usr/local/bin/gosu
 cp entrypoint.sh ./root.x86_64/entrypoint.sh
 
 # Build base image
-tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:staging"
+tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:latest"
 
-# Do the things that we can only do in docker build
-cat Dockerfile | docker build --force-rm --tag="${IMAGE_NAME}:latest" -
+# # Do the things that we can only do in docker build
+# cat Dockerfile | docker build --force-rm --tag="${IMAGE_NAME}:latest" -
 
-docker rmi "${IMAGE_NAME}:staging"
+# docker rmi "${IMAGE_NAME}:staging"
