@@ -19,8 +19,8 @@ if [[ ! -f "archlinux-bootstrap-${VERSION}-x86_64.tar.gz.sig" ]]; then
     curl -O -L "${MIRROR}/iso/${VERSION}/archlinux-bootstrap-${VERSION}-x86_64.tar.gz.sig"
 fi
 
-gpg --keyserver pgp.mit.edu --recv-keys 0x7f2d434b9741e8ac
-gpg --verify "archlinux-bootstrap-${VERSION}-x86_64.tar.gz.sig" "archlinux-bootstrap-${VERSION}-x86_64.tar.gz"
+# gpg --keyserver pgp.mit.edu --recv-keys 0x7f2d434b9741e8ac
+gpg --keyserver-options auto-key-retrieve --auto-key-locate pka --verify "archlinux-bootstrap-${VERSION}-x86_64.tar.gz.sig" "archlinux-bootstrap-${VERSION}-x86_64.tar.gz"
 
 sudo rm -rf ./root.x86_64
 tar xf archlinux-bootstrap-$VERSION-x86_64.tar.gz
