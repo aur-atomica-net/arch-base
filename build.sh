@@ -1,6 +1,6 @@
 #!/bin/bash
-set -e
-set -x
+set -x # Echo?
+set -e # Errors?
 set -o pipefail
 
 IMAGE_NAME="atomica/arch-base"
@@ -19,11 +19,10 @@ if [[ ! -f "archlinux-bootstrap-${VERSION}-x86_64.tar.gz.sig" ]]; then
     curl -O -L "${MIRROR}/iso/${VERSION}/archlinux-bootstrap-${VERSION}-x86_64.tar.gz.sig"
 fi
 
-# gpg --keyserver pgp.mit.edu --recv-keys 0x7f2d434b9741e8ac
 gpg --keyserver-options auto-key-retrieve --auto-key-locate pka --verify "archlinux-bootstrap-${VERSION}-x86_64.tar.gz.sig" "archlinux-bootstrap-${VERSION}-x86_64.tar.gz"
 
 sudo rm -rf ./root.x86_64
-tar xf archlinux-bootstrap-$VERSION-x86_64.tar.gz
+tar xf archlinux-bootstrap-${VERSION}-x86_64.tar.gz
 
 ## arch-base
 cp arch-base.sh ./root.x86_64/
@@ -40,9 +39,12 @@ chmod 755 ./root.x86_64/usr/local/bin/gosu
 cp entrypoint.sh ./root.x86_64/entrypoint.sh
 
 # Build base image
-tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:latest"
+tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:staging"
 
 # # Do the things that we can only do in docker build
-# cat Dockerfile | docker build --force-rm --tag="${IMAGE_NAME}:latest" -
+cat Dockerfile | docker build --force-rm --tag="${IMAGE_NAME}:latest" -
 
-# docker rmi "${IMAGE_NAME}:staging"
+docker rmi "${IMAGE_NAME}:staging"
+
+# Test that it can be ran
+docker run --rm "${IMAGE_NAME}:latest" /bin/env
