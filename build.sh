@@ -39,7 +39,7 @@ DELIM
 
 # arch-base
 cp arch-base.sh ./root.x86_64/
-sudo systemd-nspawn --directory=$(pwd)/root.x86_64 --machine=arch-base-${RANDOM} ---setenv=http_proxy=${http_proxy} ---setenv=https_proxy=${https_proxy} /bin/sh /arch-base.sh
+sudo systemd-nspawn --directory=$(pwd)/root.x86_64 --machine=arch-base-${RANDOM} --setenv=http_proxy="${http_proxy}" --setenv=https_proxy="${https_proxy}" /bin/sh /arch-base.sh
 rm -f ./root.x86_64/arch-base.sh
 
 # gosu
