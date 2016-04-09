@@ -54,7 +54,7 @@ cp entrypoint.sh ./root.x86_64/entrypoint.sh
 tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:staging"
 
 # Do the things that we can only do in docker build
-cat Dockerfile | docker build --build-env http_proxy="${http_proxy}" --build-env https_proxy="${https_proxy}" --force-rm --tag="${IMAGE_NAME}:latest" -
+cat Dockerfile | docker build --build-arg http_proxy="${http_proxy}" --build-arg https_proxy="${https_proxy}" --force-rm --tag="${IMAGE_NAME}:latest" -
 
 # Remove the staging image
 docker rmi "${IMAGE_NAME}:staging"
