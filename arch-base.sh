@@ -10,7 +10,7 @@ echo 'nameserver 8.8.8.8' > /etc/resolv.conf
 echo 'nameserver 8.8.4.4' >> /etc/resolv.conf
 
 # Setup a mirror.
-echo 'Server = http://mirrors.ocf.berkeley.edu/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 
 # Setup Keys
 pacman-key --init
@@ -24,7 +24,10 @@ pacman-key -r 0x4466fcf875b1e1ac && pacman-key --lsign-key 0x4466fcf875b1e1ac
 pacman -Syu --noconfirm --needed bash bzip2 coreutils device-mapper dhcpcd gcc-libs gettext glibc grep gzip inetutils iproute2 iputils less libutil-linux licenses logrotate psmisc sed shadow sysfsutils systemd-sysvcompat tar texinfo usbutils util-linux which
 
 # Additional packages
-pacman -Syu --noconfirm sudo git
+pacman -Syu --noconfirm sudo git reflector
+
+# Update mirror list
+reflector -a 24 -f 6 -c US > /etc/pacman.d/mirrorlist
 
 # Ensure locale is setup
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen

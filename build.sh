@@ -4,7 +4,7 @@ set -e # Errors?
 set -o pipefail
 
 IMAGE_NAME="atomica/arch-base"
-MIRROR="http://mirrors.ocf.berkeley.edu/archlinux"
+MIRROR="http://mirrors.kernel.org/archlinux"
 VERSION=$(curl ${MIRROR}/iso/latest/ | grep -Poh '(?<=archlinux-bootstrap-)\d*\.\d*\.\d*(?=\-x86_64)' | head -n 1)
 
 if [[ $EUID -ne 0 ]]; then
