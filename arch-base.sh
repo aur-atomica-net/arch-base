@@ -10,7 +10,7 @@ echo 'nameserver 8.8.8.8' > /etc/resolv.conf
 echo 'nameserver 8.8.4.4' >> /etc/resolv.conf
 
 # Setup a mirror.
-echo 'Server = http://mirror.lty.me/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+echo 'Server = http://mirrors.ocf.berkeley.edu/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 
 # Setup Keys
 pacman-key --init
