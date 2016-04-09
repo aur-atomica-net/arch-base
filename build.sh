@@ -61,3 +61,10 @@ docker rmi "${IMAGE_NAME}:staging"
 
 # Test that it can be ran
 docker run --rm "${IMAGE_NAME}:latest" /bin/env
+
+# Push to registry if configured
+if [ ! -z "${DOCKER_REGISTRY}" ]; then
+    docker login --username=${DOCKER_USER} --password=${DOCKER_PASS} --email=${DOCKER_EMAIL} ${DOCKER_REGISTRY}
+    docker tag "${IMAGE_NAME}:latest" "${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+    docker push "${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+fi
