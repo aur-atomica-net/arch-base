@@ -27,7 +27,7 @@ tar xf archlinux-bootstrap-${VERSION}-x86_64.tar.gz
 ## arch-base
 cp arch-base.sh ./root.x86_64/
 cp pacman.conf ./root.x86_64/etc/pacman.conf
-sudo systemd-nspawn --directory=$(pwd)/root.x86_64 --bind=/var/cache/pacman --machine=arch-base-${RANDOM} /bin/sh /arch-base.sh
+sudo systemd-nspawn --directory=$(pwd)/root.x86_64 --machine=arch-base-${RANDOM} -E http_proxy="$http_proxy" -E https_proxy="$https_proxy" /bin/sh /arch-base.sh
 rm -f ./root.x86_64/arch-base.sh
 
 # gosu
