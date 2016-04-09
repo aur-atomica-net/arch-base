@@ -24,10 +24,22 @@ gpg --keyserver-options auto-key-retrieve --auto-key-locate pka --verify "archli
 sudo rm -rf ./root.x86_64
 tar xf archlinux-bootstrap-${VERSION}-x86_64.tar.gz
 
-## arch-base
+# General Configuration
+echo 'nameserver 8.8.8.8' > ./root.x86_64/etc/resolv.conf
+echo 'nameserver 8.8.4.4' >> ./root.x86_64/etc/resolv.conf
+echo 'en_US.UTF-8 UTF-8' > ./root.x86_64/etc/locale.gen
+echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' > ./root.x86_64/etc/pacman.d/mirrorlist
+
+# aur.atomica.net package repository
+cat >> ./root.x86_64/etc/pacman.conf <<DELIM
+[atomica]
+Server = http://aur.atomica.net/\$repo/\$arch
+SigLevel = Never
+DELIM
+
+# arch-base
 cp arch-base.sh ./root.x86_64/
-cp pacman.conf ./root.x86_64/etc/pacman.conf
-sudo systemd-nspawn --directory=$(pwd)/root.x86_64 --machine=arch-base-${RANDOM} -E http_proxy="${http_proxy}" -E https_proxy="${https_proxy}" /bin/sh /arch-base.sh
+sudo systemd-nspawn --directory=$(pwd)/root.x86_64 --machine=arch-base-${RANDOM} ---setenv=http_proxy=${http_proxy} ---setenv=https_proxy=${https_proxy} /bin/sh /arch-base.sh
 rm -f ./root.x86_64/arch-base.sh
 
 # gosu
@@ -44,6 +56,7 @@ tar --numeric-owner -C root.x86_64 -c . | docker import - "${IMAGE_NAME}:staging
 # Do the things that we can only do in docker build
 cat Dockerfile | docker build --force-rm --tag="${IMAGE_NAME}:latest" -
 
+# Remove the staging image
 docker rmi "${IMAGE_NAME}:staging"
 
 # Test that it can be ran

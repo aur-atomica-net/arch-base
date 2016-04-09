@@ -5,13 +5,6 @@ set -o pipefail
 
 # Based on: http://hoverbear.org/2014/07/14/arch-docker-baseimage/
 
-# Setup DNS
-echo 'nameserver 8.8.8.8' > /etc/resolv.conf
-echo 'nameserver 8.8.4.4' >> /etc/resolv.conf
-
-# Setup a mirror.
-echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
-
 # Setup Keys
 pacman-key --init
 pacman-key --populate archlinux
@@ -27,5 +20,4 @@ pacman -Syu --noconfirm --needed bash bzip2 coreutils device-mapper dhcpcd gcc-l
 pacman -Syu --noconfirm sudo git
 
 # Ensure locale is setup
-echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
