@@ -4,8 +4,7 @@ set -x
 set -o pipefail
 
 if [[ $EUID -ne 0 ]]; then
-    # Not running as root inside of container so lets see what happens
-    echo "not running as root"
+    echo " ==> Not running as root inside of container"
     exec "$@"
 fi
 
@@ -14,6 +13,11 @@ fi
 # that matches the uid:gid of the host
 USER_ID=$(stat -c "%u" .)
 GROUP_ID=$(stat -c "%g" .)
+
+if [ $USER_ID == 0 ] || [ $GROUP_ID == 0 ] ; then
+    echo " ==> Outside is expecting files with root uid:gid"
+    exec "$@"
+fi
 
 # Setup our user
 groupadd -r -g ${GROUP_ID} code_executor
