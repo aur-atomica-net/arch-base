@@ -24,10 +24,7 @@ pacman-key -r 0x4466fcf875b1e1ac && pacman-key --lsign-key 0x4466fcf875b1e1ac
 pacman -Syu --noconfirm --needed bash bzip2 coreutils device-mapper dhcpcd gcc-libs gettext glibc grep gzip inetutils iproute2 iputils less libutil-linux licenses logrotate psmisc sed shadow sysfsutils systemd-sysvcompat tar texinfo usbutils util-linux which
 
 # Additional packages
-pacman -Syu --noconfirm sudo git reflector
-
-# Update mirror list
-reflector -a 24 -f 6 -c US > /etc/pacman.d/mirrorlist
+pacman -Syu --noconfirm sudo git
 
 # Ensure locale is setup
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
