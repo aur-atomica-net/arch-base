@@ -16,7 +16,7 @@ GROUP_ID=$(stat -c "%g" .)
 HOME_DIR=$(pwd)
 
 if [ $USER_ID == 0 ] || [ $GROUP_ID == 0 ] ; then
-    echo " ==> Outside is expecting files with root uid:gid"
+    echo " ==> Outside is either expecting files with root uid:gid, or our working directory isn't an external volume"
     exec "$@"
 fi
 
