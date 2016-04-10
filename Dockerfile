@@ -1,3 +1,8 @@
-FROM atomica/arch-base:staging
+FROM atomica/arch-bootstrap:latest
 
+COPY entrypoint.sh arch-base.sh /
+
+RUN ["/arch-base.sh"]
+
+# Entrypoint script until we can figure out a better way to handle user/group issues
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
