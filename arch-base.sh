@@ -22,7 +22,7 @@ curl -L https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64 -o /usr/
 chmod 755 /usr/local/bin/gosu
 
 # Setup Keys
-pacman-key --init
+pacman-key --init --keyserver hkp://pool.sks-keyservers.net
 pacman-key --populate archlinux
 
 # Add key for aur.atomica.net
