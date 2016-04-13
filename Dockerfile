@@ -1,4 +1,4 @@
-FROM atomica/arch-bootstrap:latest
+FROM docker.artfire.me/atomica/arch-bootstrap:latest
 
 COPY entrypoint.sh arch-base.sh /
 
