@@ -28,9 +28,12 @@ pacman-key --populate archlinux
 # Add key for aur.atomica.net
 pacman-key -r 0x4466fcf875b1e1ac && pacman-key --lsign-key 0x4466fcf875b1e1ac
 
+# Update keyring
+pacman --sync --refresh --noconfirm archlinux-keyring
+
 # Base without the following packages, to save space.
 # linux jfsutils lvm2 cryptsetup groff man-db man-pages mdadm pciutils pcmciautils reiserfsprogs s-nail xfsprogs vi
-pacman -Syu --noconfirm --needed bash bzip2 coreutils device-mapper dhcpcd gcc-libs gettext glibc grep gzip inetutils iproute2 iputils less libutil-linux licenses logrotate psmisc sed shadow sysfsutils systemd-sysvcompat tar texinfo usbutils util-linux which
+pacman --sync --sysupgrade --noconfirm --needed bash bzip2 coreutils device-mapper dhcpcd gcc-libs gettext glibc grep gzip inetutils iproute2 iputils less libutil-linux licenses logrotate psmisc sed shadow sysfsutils systemd-sysvcompat tar texinfo usbutils util-linux which
 
 # Additional packages
 pacman -Syu --noconfirm sudo git
