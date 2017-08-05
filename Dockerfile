@@ -4,7 +4,7 @@ COPY arch-base.sh /
 
 RUN ["/bin/bash", "/arch-base.sh"]
 
-RUN useradd --groups wheel --shell /bin/bash --create-home code_executor \
+RUN useradd --groups wheel --shell /bin/bash --no-create-home code_executor \
 	&& echo 'code_executor ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 COPY entrypoint.sh match-ids.sh /
