@@ -1,7 +1,7 @@
 #!/bin/bash
-set -x # Echo?
-set -e # Errors?
-set -o pipefail
+#set -x # Echo?
+#set -e # Errors?
+#set -o pipefail
 
 IMAGE_NAME="atomica/arch-base"
 
@@ -10,6 +10,7 @@ docker build --force-rm --build-arg http_proxy="${http_proxy}" --build-arg https
 
 # Test that it can be ran
 docker run --rm "${IMAGE_NAME}:latest" /bin/env
+docker run --rm -v $(pwd):/home/build -w /home/build "${IMAGE_NAME}:latest" /bin/bash -c 'ls -l | grep "code_executor code_executor" || exit 1' || echo "User Mapping Failure" && exit 1
 
 # Push to registry if configured
 if [ ! -z "${DOCKER_REGISTRY}" ]; then
