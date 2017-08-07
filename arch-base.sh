@@ -18,7 +18,7 @@ SigLevel = Never
 DELIM
 
 mkdir -p /usr/local/bin
-curl -L https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64 -o /usr/local/bin/gosu
+curl -L https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 -o /usr/local/bin/gosu
 chmod 755 /usr/local/bin/gosu
 
 # Setup Keys

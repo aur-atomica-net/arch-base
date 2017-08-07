@@ -34,3 +34,5 @@ if [ "${GROUP}" != "${EXISTING_GROUP}" ]; then
     fi
     groupmod -o -g $EXPECTED_GID $GROUP || true
 fi
+
+chown -R $EXPECTED_UID:$EXPECTED_GID "$3"
