@@ -1,21 +1,12 @@
 #!/bin/sh
-#set -e
-#set -x
-#set -o pipefail
+set -o xtrace
+set -o errexit
+set -o pipefail
 
 # Based on: http://hoverbear.org/2014/07/14/arch-docker-baseimage/
 
 # General Configuration (that we don't want to create seperate layers for)
-echo 'nameserver 8.8.8.8' > /etc/resolv.conf
-echo 'nameserver 8.8.4.4' >> /etc/resolv.conf
 echo 'Server = http://mirrors.kernel.org/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
-
-# aur.atomica.net package repository
-cat >> /etc/pacman.conf <<DELIM
-[atomica]
-Server = http://aur.atomica.net/\$repo/\$arch
-SigLevel = Never
-DELIM
 
 mkdir -p /usr/local/bin
 curl -L https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 -o /usr/local/bin/gosu
@@ -26,7 +17,14 @@ pacman-key --init --keyserver hkp://pool.sks-keyservers.net
 pacman-key --populate archlinux
 
 # Add key for aur.atomica.net
-pacman-key -r 0x4466fcf875b1e1ac && pacman-key --lsign-key 0x4466fcf875b1e1ac
+pacman-key --keyserver hkp://pool.sks-keyservers.net --recv-keys 0x4466fcf875b1e1ac
+pacman-key --lsign-key 0x4466fcf875b1e1ac
+
+# aur.atomica.net package repository
+cat >> /etc/pacman.conf <<DELIM
+[atomica]
+Server = http://aur.atomica.net/\$repo/\$arch
+DELIM
 
 # Update keyring
 pacman --sync --refresh --noconfirm archlinux-keyring
